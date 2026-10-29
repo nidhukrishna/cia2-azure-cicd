@@ -1,0 +1,6 @@
+.git
+.github
+ansible
+k8s
+src
+*.md

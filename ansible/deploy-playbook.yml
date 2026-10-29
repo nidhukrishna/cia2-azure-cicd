@@ -1,0 +1,21 @@
+---
+- name: Deploy and Verify Kubernetes Application
+  hosts: local
+  gather_facts: no
+  vars:
+    image_name: "{{ lookup('env', 'FULL_IMAGE_NAME') }}"
+  tasks:
+    - name: Inject new Docker image tag into deployment.yaml
+      replace:
+        path: ../k8s/deployment.yaml
+        regexp: 'IMAGE_PLACEHOLDER'
+        replace: "{{ image_name }}"
+
+    - name: Apply Kubernetes Deployment
+      command: kubectl apply -f ../k8s/deployment.yaml
+
+    - name: Apply Kubernetes LoadBalancer Service
+      command: kubectl apply -f ../k8s/service.yaml
+
+    - name: Wait for rollout to complete
+      command: kubectl rollout status deployment/cia2-webapp --timeout=120s
