@@ -15,7 +15,7 @@ public class DemoApplication {
 
     @GetMapping("/")
     public String home() {
-        return "CIA 2 Cloud CI/CD Pipeline - Version 1.0 (Initial Deployment)";
+        return "CIA 2 Cloud CI/CD Pipeline - Version 2.0 (Automated Redeployment Verified!)";
     }
 
     @GetMapping("/health")
